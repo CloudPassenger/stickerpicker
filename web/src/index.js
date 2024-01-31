@@ -338,7 +338,7 @@ const NavBarItem = ({ pack, iconOverride = null }) => html`
 			${iconOverride ? html`
 				<span class="icon icon-${iconOverride}"/>
 			` : html`
-				<img src=${mxcUrlToHttp(pack.stickers[0].thumbnail_url)}
+				<img src=${mxcUrlToHttp(pack.stickers[0].info.thumbnail_url)}
 					alt=${pack.stickers[0].body} class="visible" />
 			`}
 		</div>
@@ -358,7 +358,7 @@ const Pack = ({ pack, send }) => html`
 
 const Sticker = ({ content, send }) => html`
 	<div class="sticker" onClick=${send} data-sticker-id=${content.id}>
-		<img data-src=${mxcUrlToHttp(content.thumbnail_url)} alt=${content.body} title=${content.body} />
+		<img data-src=${mxcUrlToHttp(content.info.thumbnail_url)} alt=${content.body} title=${content.body} />
 	</div>
 `
 

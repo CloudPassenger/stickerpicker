@@ -31,7 +31,9 @@ if (params.has('config')) {
 // This is updated from packs/index.json
 let HOMESERVER_URL = "https://matrix-client.matrix.org"
 
-const makeThumbnailURL = mxc => `${HOMESERVER_URL}/_matrix/media/r0/thumbnail/${mxc.substr(6)}?height=128&width=128&method=scale`
+// const makeThumbnailURL = mxc => `${HOMESERVER_URL}/_matrix/media/r0/thumbnail/${mxc.substr(6)}?height=128&width=128&method=scale`
+
+const mxcUrlToHttp = mxc => `${HOMESERVER_URL}/_matrix/media/v1/download/${mxc.substr(6)}`
 
 // We need to detect iOS webkit because it has a bug related to scrolling non-fixed divs
 // This is also used to fix scrolling to sections on Element iOS
@@ -336,7 +338,7 @@ const NavBarItem = ({ pack, iconOverride = null }) => html`
 			${iconOverride ? html`
 				<span class="icon icon-${iconOverride}"/>
 			` : html`
-				<img src=${makeThumbnailURL(pack.stickers[0].url)}
+				<img src=${mxcUrlToHttp(pack.stickers[0].thumbnail_url)}
 					alt=${pack.stickers[0].body} class="visible" />
 			`}
 		</div>
@@ -356,7 +358,7 @@ const Pack = ({ pack, send }) => html`
 
 const Sticker = ({ content, send }) => html`
 	<div class="sticker" onClick=${send} data-sticker-id=${content.id}>
-		<img data-src=${makeThumbnailURL(content.url)} alt=${content.body} title=${content.body} />
+		<img data-src=${mxcUrlToHttp(content.thumbnail_url)} alt=${content.body} title=${content.body} />
 	</div>
 `
 
